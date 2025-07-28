@@ -10,10 +10,25 @@ config_version=5
 
 [application]
 
-config/name="GMTK2025_Jam"
+config/name="ButterJam_2025"
+config/description="GMTK Game Jam 2025
+Sean Cunnington - Programming
+"
 run/main_scene="uid://cg6gmtrtausky"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=480
+window/size/mode=4
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [rendering]
 
