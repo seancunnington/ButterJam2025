@@ -14,20 +14,24 @@ config/name="ButterJam_2025"
 config/description="GMTK Game Jam 2025
 Sean Cunnington - Programming
 "
-run/main_scene="uid://cg6gmtrtausky"
+run/main_scene="uid://bcouwkwexn57r"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=480
+window/size/viewport_width=1600
+window/size/viewport_height=960
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [filesystem]
 
 import/blender/enabled=false
+
+[physics]
+
+2d/default_gravity=0.0
 
 [rendering]
 

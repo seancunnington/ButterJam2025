@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://balf2qsg47bot"]
+
+[ext_resource type="Script" uid="uid://bqujrgssjca37" path="res://Prefabs/Moveable/movable_object.gd" id="1_ktcit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i41h"]
+size = Vector2(15.8, 15.8)
+
+[sub_resource type="Gradient" id="Gradient_0i41h"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ktcit"]
+gradient = SubResource("Gradient_0i41h")
+width = 16
+height = 16
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ktcit"]
+cull_mode = 2
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="MovableObject" type="CharacterBody2D"]
+collision_layer = 3
+motion_mode = 1
+script = ExtResource("1_ktcit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0i41h")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+light_mask = 2
+texture_filter = 1
+texture = SubResource("GradientTexture2D_ktcit")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ktcit")

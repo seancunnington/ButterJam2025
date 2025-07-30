@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn47oi5twffw2"]
+
+[ext_resource type="Script" uid="uid://c34ur6ap7lqrh" path="res://Prefabs/Detector/detector.gd" id="1_igfvs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf1r6"]
+size = Vector2(24, 24)
+
+[sub_resource type="Gradient" id="Gradient_igfvs"]
+offsets = PackedFloat32Array(0.57, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ufjv"]
+gradient = SubResource("Gradient_igfvs")
+width = 24
+height = 24
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Detector" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_igfvs")
+sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qf1r6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.0166664, 1)
+texture_filter = 1
+texture = SubResource("GradientTexture2D_5ufjv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6pwyu7gjoysk"]
+[gd_scene load_steps=13 format=3 uid="uid://b6pwyu7gjoysk"]
 
 [ext_resource type="Script" uid="uid://c4dq6yw177a3e" path="res://Prefabs/Player/player_character.gd" id="1_han87"]
+[ext_resource type="PackedScene" uid="uid://bdld17qbismnb" path="res://Prefabs/LivelyLight/lively_light.tscn" id="2_v8awl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2042e"]
 radius = 12.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v8awl"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_uql71"]
 offsets = PackedFloat32Array(0, 0.35, 0.58, 0.9, 1)
@@ -61,6 +65,7 @@ shape = SubResource("CircleShape2D_2042e")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_v8awl")
 texture = SubResource("GradientTexture2D_76y4n")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
@@ -71,3 +76,5 @@ fixed_fps = 60
 interpolate = false
 fract_delta = false
 process_material = SubResource("ParticleProcessMaterial_vhy1l")
+
+[node name="LivelyLight" parent="." instance=ExtResource("2_v8awl")]
