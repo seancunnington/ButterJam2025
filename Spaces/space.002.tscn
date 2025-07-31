@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://cg6gmtrtausky"]
+[gd_scene load_steps=8 format=4 uid="uid://cg6gmtrtausky"]
 
 [ext_resource type="Script" uid="uid://b1bgrn2wnt767" path="res://Scripts/space_manager.gd" id="1_mxux2"]
 [ext_resource type="Script" uid="uid://bd7cyaw4p7vmc" path="res://Scripts/canvas_shadow.gd" id="2_awiol"]
+[ext_resource type="PackedScene" uid="uid://ddbf3lojwuvdj" path="res://Audio/audio_manager.tscn" id="2_nnmyw"]
 [ext_resource type="TileSet" uid="uid://bayxb46qyr31e" path="res://TileMaps/tile_map_test.tres" id="3_nnmyw"]
 [ext_resource type="PackedScene" uid="uid://dn47oi5twffw2" path="res://Prefabs/Detector/detector.tscn" id="4_ixdvp"]
 [ext_resource type="PackedScene" uid="uid://b6pwyu7gjoysk" path="res://Prefabs/Player/player_character.tscn" id="5_wrjcq"]
@@ -9,6 +10,8 @@
 
 [node name="space_root" type="Node"]
 script = ExtResource("1_mxux2")
+
+[node name="AudioManager" parent="." instance=ExtResource("2_nnmyw")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false

@@ -18,6 +18,12 @@ run/main_scene="uid://bcouwkwexn57r"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Main="*res://Scripts/main.gd"
+Constants="*res://Scripts/constants.gd"
+SpaceTransition="*res://Prefabs/SpaceTransition/space_transition.tscn"
+
 [display]
 
 window/size/viewport_width=1600

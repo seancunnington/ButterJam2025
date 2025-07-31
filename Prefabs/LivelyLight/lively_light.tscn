@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdld17qbismnb"]
+[gd_scene load_steps=6 format=3 uid="uid://bdld17qbismnb"]
 
 [ext_resource type="Script" uid="uid://bhqwfo46fxyk6" path="res://Prefabs/LivelyLight/lively_light.gd" id="1_wr4e5"]
+[ext_resource type="Texture2D" uid="uid://c7hdn0f58efg" path="res://Prefabs/LivelyLight/lightTexture_1.png" id="2_jg121"]
+[ext_resource type="Texture2D" uid="uid://dnrfmepdg2l83" path="res://Prefabs/LivelyLight/lightTexture_2.png" id="3_ie536"]
 
 [sub_resource type="Gradient" id="Gradient_lokdm"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -13,16 +15,20 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[node name="LivelyLight" type="Node2D" node_paths=PackedStringArray("light_a", "light_b")]
+[node name="LivelyLight" type="Node2D" node_paths=PackedStringArray("light_a")]
 script = ExtResource("1_wr4e5")
+jitter_speed = 5.0
+jitter_range = 5.0
 light_a = NodePath("LightA")
-light_b = NodePath("LightB")
+light_cookies = Array[Texture2D]([ExtResource("2_jg121"), ExtResource("3_ie536")])
 
 [node name="LightA" type="PointLight2D" parent="."]
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_jg121")
+texture = ExtResource("2_jg121")
+texture_scale = 1.8
 
 [node name="LightB" type="PointLight2D" parent="."]
+visible = false
 range_item_cull_mask = 2
 shadow_enabled = true
 shadow_item_cull_mask = 2

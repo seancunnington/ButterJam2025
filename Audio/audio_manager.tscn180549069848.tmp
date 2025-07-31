@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddbf3lojwuvdj"]
+
+[ext_resource type="Script" uid="uid://bksbalmc0ndu" path="res://Audio/audio_manager.gd" id="1_x7qoq"]
+[ext_resource type="AudioStream" uid="uid://dhvqqquss78gq" path="res://Audio/TestMusic/Drums.mp3" id="2_150o5"]
+[ext_resource type="AudioStream" uid="uid://c5r43cqrpeixn" path="res://Audio/TestMusic/MainBass.mp3" id="3_0wlvu"]
+[ext_resource type="AudioStream" uid="uid://cu7dgiaibj0rc" path="res://Audio/TestMusic/KyBass.mp3" id="4_dxlp5"]
+[ext_resource type="AudioStream" uid="uid://baodjopo8mvcn" path="res://Audio/TestMusic/Arp.mp3" id="5_acx60"]
+[ext_resource type="AudioStream" uid="uid://b4uw85id1gdg0" path="res://Audio/TestMusic/AccessoryDsf.mp3" id="6_fi7yh"]
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_dbmpi"]
+stream_count = 5
+stream_0/stream = ExtResource("2_150o5")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("3_0wlvu")
+stream_1/volume = 0.0
+stream_2/stream = ExtResource("4_dxlp5")
+stream_2/volume = 0.0
+stream_3/stream = ExtResource("5_acx60")
+stream_3/volume = 0.0
+stream_4/stream = ExtResource("6_fi7yh")
+stream_4/volume = 0.0
+
+[node name="AudioManager" type="Node" node_paths=PackedStringArray("music_player")]
+script = ExtResource("1_x7qoq")
+music_player = NodePath("MusicPlayer")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamSynchronized_dbmpi")
+bus = &"Music"

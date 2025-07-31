@@ -1,17 +1,15 @@
-extends Node2D
+extends PointLight2D
+
 
 
 ## Maximum jitter offset per dimension, in pixels
-@export var jitter_offset := 5.0
+@export var jitter_offset := 2.5
 
 ## How fast the light changes, in jitters per second
 @export var jitter_speed := 4.0
 
 @export_range(0.0, 30.0) var jitter_range := 10.0
 @export var light_move_speed := 50.0
-
-@export var light_a : PointLight2D
-##@export var light_b : PointLight2D
 
 @export var light_cookies : Array[Texture2D]
 var index_change = 0
@@ -28,7 +26,7 @@ func _process(delta: float) -> void:
 		progress -= 1.0
 		jitter()
 		toggle_rotate_cookie()
-	light_a.position = light_a.position.move_toward(light_position_target, delta * light_move_speed)
+	position = position.move_toward(light_position_target, delta * light_move_speed)
 
 
 func jitter() -> void:
@@ -47,8 +45,8 @@ func toggle_rotate_cookie() -> void:
 		light_index += 1
 		if light_index >= light_cookies.size():
 			light_index = 0
-		light_a.texture = light_cookies[light_index]
-	light_a.rotation_degrees += randf_range(-jitter_range, jitter_range)
-	light_a.texture_scale = clamp(light_a.texture_scale + randf_range(-0.08, 0.08), 2.0, 2.6)
+		texture = light_cookies[light_index]
+	rotation_degrees += randf_range(-jitter_range, jitter_range)
+	texture_scale = clamp(texture_scale + randf_range(-0.08, 0.08), 0.2, 0.6)
 	
 	

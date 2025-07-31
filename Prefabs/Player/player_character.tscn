@@ -1,25 +1,43 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6pwyu7gjoysk"]
+[gd_scene load_steps=22 format=3 uid="uid://b6pwyu7gjoysk"]
 
 [ext_resource type="Script" uid="uid://c4dq6yw177a3e" path="res://Prefabs/Player/player_character.gd" id="1_han87"]
+[ext_resource type="Texture2D" uid="uid://clqkjw2til6qv" path="res://Prefabs/Player/PlayerAnims/player_Idle.png" id="2_e3o55"]
 [ext_resource type="PackedScene" uid="uid://bdld17qbismnb" path="res://Prefabs/LivelyLight/lively_light.tscn" id="2_v8awl"]
+[ext_resource type="Texture2D" uid="uid://cjywva5eaopr8" path="res://Prefabs/Player/PlayerAnims/player_HopDown.png" id="3_wypc4"]
+[ext_resource type="Texture2D" uid="uid://do1d50vdjxel6" path="res://Prefabs/Player/PlayerAnims/player_HopUp.png" id="4_6ye7q"]
+[ext_resource type="Script" uid="uid://bd7cyaw4p7vmc" path="res://Scripts/canvas_shadow.gd" id="5_6ye7q"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tmpqm"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_y528l"]
+colors = PackedColorArray(0.170511, 0.100886, 0.1411, 1, 0.168627, 0.101961, 0.141176, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2qjvy"]
+gradient = SubResource("Gradient_y528l")
+width = 2000
+height = 1300
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h1iyn"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u8k7w"]
+blend_mode = 2
+light_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_s0ysh"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5yh4p"]
+gradient = SubResource("Gradient_s0ysh")
+width = 2000
+height = 1300
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2042e"]
-radius = 12.0
+radius = 24.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v8awl"]
 light_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_uql71"]
-offsets = PackedFloat32Array(0, 0.35, 0.58, 0.9, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0.839216, 0.454902, 1, 1, 0.839216, 0.454902, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_76y4n"]
-gradient = SubResource("Gradient_uql71")
-width = 25
-height = 25
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_han87"]
 blend_mode = 1
@@ -31,8 +49,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_e3o55"]
 gradient = SubResource("Gradient_v8awl")
-width = 16
-height = 16
+width = 32
+height = 32
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
@@ -58,17 +76,47 @@ alpha_curve = SubResource("CurveTexture_v8awl")
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
 motion_mode = 1
+wall_min_slide_angle = 0.174533
 script = ExtResource("1_han87")
+speed = 200
+image_idle = ExtResource("2_e3o55")
+image_hop_up = ExtResource("4_6ye7q")
+image_hop_down = ExtResource("3_wypc4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+fit_margin = 1.0
+clear_margin = 1.0
+
+[node name="Color" type="Sprite2D" parent="CanvasGroup"]
+material = SubResource("CanvasItemMaterial_tmpqm")
+texture = SubResource("GradientTexture2D_2qjvy")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasGroup"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_h1iyn")
+color = Color(0.0943306, 0.0480493, 0.0747924, 1)
+script = ExtResource("5_6ye7q")
+
+[node name="Mask" type="Sprite2D" parent="CanvasGroup"]
+material = SubResource("CanvasItemMaterial_u8k7w")
+texture = SubResource("GradientTexture2D_5yh4p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2042e")
 
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Player_Sprite" type="Sprite2D" parent="CollisionShape2D"]
+z_index = 3
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_v8awl")
-texture = SubResource("GradientTexture2D_76y4n")
+texture = ExtResource("2_e3o55")
+offset = Vector2(0, -7)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_han87")
 amount = 16
 texture = SubResource("GradientTexture2D_e3o55")

@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://balf2qsg47bot"]
+[gd_scene load_steps=10 format=3 uid="uid://balf2qsg47bot"]
 
 [ext_resource type="Script" uid="uid://bqujrgssjca37" path="res://Prefabs/Moveable/movable_object.gd" id="1_ktcit"]
+[ext_resource type="Texture2D" uid="uid://c7hdn0f58efg" path="res://Prefabs/LivelyLight/lightTexture_1.png" id="2_oq823"]
+[ext_resource type="Script" uid="uid://d1lidxsxs8odt" path="res://Scripts/object_light.gd" id="3_6qhqa"]
+[ext_resource type="Texture2D" uid="uid://dnrfmepdg2l83" path="res://Prefabs/LivelyLight/lightTexture_2.png" id="4_lykow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i41h"]
 size = Vector2(15.8, 15.8)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ktcit"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_0i41h"]
 
@@ -24,13 +30,23 @@ collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_ktcit")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+blend_mode = 2
+texture = ExtResource("2_oq823")
+texture_scale = 0.5
+script = ExtResource("3_6qhqa")
+jitter_speed = 5.0
+jitter_range = 5.0
+light_cookies = Array[Texture2D]([ExtResource("2_oq823"), ExtResource("4_lykow")])
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0i41h")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-light_mask = 2
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_ktcit")
 texture = SubResource("GradientTexture2D_ktcit")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_ktcit")
