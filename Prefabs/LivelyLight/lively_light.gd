@@ -49,6 +49,4 @@ func toggle_rotate_cookie() -> void:
 			light_index = 0
 		light_a.texture = light_cookies[light_index]
 	light_a.rotation_degrees += randf_range(-jitter_range, jitter_range)
-	light_a.texture_scale = clamp(light_a.texture_scale + randf_range(-0.08, 0.08), 2.0, 2.6)
-	
-	
+	light_a.texture_scale = clamp(light_a.texture_scale + randf_range(-0.08, 0.08), 2.0, 2.6) * Main.global_light_scale

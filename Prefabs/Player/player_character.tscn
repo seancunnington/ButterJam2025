@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b6pwyu7gjoysk"]
+[gd_scene load_steps=30 format=3 uid="uid://b6pwyu7gjoysk"]
 
 [ext_resource type="Script" uid="uid://c4dq6yw177a3e" path="res://Prefabs/Player/player_character.gd" id="1_han87"]
 [ext_resource type="Texture2D" uid="uid://clqkjw2til6qv" path="res://Prefabs/Player/PlayerAnims/player_Idle.png" id="2_e3o55"]
@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://cjywva5eaopr8" path="res://Prefabs/Player/PlayerAnims/player_HopDown.png" id="3_wypc4"]
 [ext_resource type="Texture2D" uid="uid://do1d50vdjxel6" path="res://Prefabs/Player/PlayerAnims/player_HopUp.png" id="4_6ye7q"]
 [ext_resource type="Script" uid="uid://bd7cyaw4p7vmc" path="res://Scripts/canvas_shadow.gd" id="5_6ye7q"]
+[ext_resource type="PackedScene" uid="uid://c11f8vvstu7t0" path="res://Prefabs/Player/player_body_part.tscn" id="5_u3glx"]
+[ext_resource type="Texture2D" uid="uid://c0put0e7rrxqx" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Leg_Left.png" id="7_5yh4p"]
+[ext_resource type="Texture2D" uid="uid://buejlbsrxyu0d" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Leg_Right.png" id="8_u3glx"]
+[ext_resource type="Texture2D" uid="uid://bytpw11righk2" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Arm_Right.png" id="9_7vslo"]
+[ext_resource type="Texture2D" uid="uid://bmbsc6lubcpgl" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Torso.png" id="10_fjhbo"]
+[ext_resource type="Texture2D" uid="uid://cbjqx6m1hngt1" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Arm_Left.png" id="11_vvih6"]
+[ext_resource type="Texture2D" uid="uid://bi8y4l73nqbrx" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Head.png" id="12_4apl1"]
+[ext_resource type="Texture2D" uid="uid://ciar120e4nnes" path="res://Prefabs/Player/Player_BodyParts/Player_BodyParts_Hat.png" id="13_6dd7f"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tmpqm"]
 light_mode = 1
@@ -82,6 +90,8 @@ speed = 200
 image_idle = ExtResource("2_e3o55")
 image_hop_up = ExtResource("4_6ye7q")
 image_hop_down = ExtResource("3_wypc4")
+body_part_scene = ExtResource("5_u3glx")
+body_part_images = Array[Texture2D]([ExtResource("7_5yh4p"), ExtResource("8_u3glx"), ExtResource("9_7vslo"), ExtResource("10_fjhbo"), ExtResource("11_vvih6"), ExtResource("12_4apl1"), ExtResource("13_6dd7f")])
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
@@ -105,10 +115,10 @@ script = ExtResource("5_6ye7q")
 material = SubResource("CanvasItemMaterial_u8k7w")
 texture = SubResource("GradientTexture2D_5yh4p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2042e")
 
-[node name="Player_Sprite" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Player_Sprite" type="Sprite2D" parent="Collider"]
 z_index = 3
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_v8awl")
@@ -126,3 +136,5 @@ fract_delta = false
 process_material = SubResource("ParticleProcessMaterial_vhy1l")
 
 [node name="LivelyLight" parent="." instance=ExtResource("2_v8awl")]
+
+[node name="BodyParts" type="Node2D" parent="."]
