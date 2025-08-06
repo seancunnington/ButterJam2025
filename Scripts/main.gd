@@ -11,26 +11,34 @@ var global_light_scale := 1.0
 
 ##-----------
 ##Time
+signal ghost_timer_tick()
+signal on_timers_reset()
+
+var world_timer_active = false
+var ghost_music_timer_active = false
+var ghost_chase_timer_active = false
+
 var time_percent = 0.0
 var time_countdown = 0.0
-var end_of_timer = false
 
 const world_timer_set_mil = 1000
-const world_timer_set_sec = 5
-var world_timer_set = world_timer_set_mil * world_timer_set_sec
+const world_timer_set_sec = 60
+const world_timer_set = world_timer_set_mil * world_timer_set_sec
 var world_timer = world_timer_set + Time.get_ticks_msec()
 
 var ghost_timer = 0
-var ghost_timer_tick = false
 var ghost_timer_index = 0
 var ghost_timer_start = 0
+
+## The milliseconds between each string section in "I'm Gonna Get Ya"
 var ghost_timer_intervals = [
-	1000,
-	7000,
-	13000,
-	19000,
-	25000
+	650, 2600, 4600, 6700, 8900, 
+	10900, 13000, 15000, 17200, 19200, 
+	21200, 23300, 25400, 27500, 29500
 ]
+
+var ghost_chase_timer = 0
+var ghost_chase_timer_set = 1000 * 5    ## mil * sec
 
 
 ##----------------------------------------------
@@ -39,40 +47,67 @@ var ghost_timer_intervals = [
 
 func _ready() -> void:
 	global_light_scale = 1.0
-	end_of_timer = false
-	ghost_timer = 0
-	ghost_timer_index = 0
-	ghost_timer_tick = false
+	reset_all_world_timers()
 
 
 func _process(_delta: float) -> void:
 	var time = Time.get_ticks_msec()
-	ghost_timer_tick = false
 	
 	## World Timer
-	if world_timer > time:
-		time_percent = (world_timer - time) / float(world_timer_set)
-		@warning_ignore("integer_division")
-		time_countdown = (world_timer - time) / world_timer_set_mil + 1
-		##print("world_timer: ", world_timer, " - time percent: ", time_percent, " - time countdown: ", time_countdown)
+	if world_timer_active == true:
+		if world_timer > time:
+			time_percent = (world_timer - time) / float(world_timer_set)
+			@warning_ignore("integer_division")
+			time_countdown = (world_timer - time) / world_timer_set_mil + 1
+			##print("world_timer: ", world_timer, " - time percent: ", time_percent, " - time countdown: ", time_countdown)
+		
+		## End of World Timer - single instance
+		else:
+			time_percent = 0.0
+			time_countdown = 0
+			ghost_timer_start = Time.get_ticks_msec()
+			world_timer_active = false
+			ghost_music_timer_active = true
+			print(" -- WORLD TIMER END -- ")
 	
-	## End of World Timer - single instance
-	elif end_of_timer == false:
-		time_percent = 0.0
-		time_countdown = 0
-		ghost_timer_start = Time.get_ticks_msec()
-		end_of_timer = true
-	
-	## Ghost Timer - runs after world timer has fully elapsed.
-	elif end_of_timer == true:
-		ghost_timer = Time.get_ticks_msec() - ghost_timer_start
-		if ghost_timer > ghost_timer_intervals[ghost_timer_index]:
-			ghost_timer_tick = true
-			ghost_timer_index = min(ghost_timer_index+1, ghost_timer_intervals.size()-1)
-			print("ghost index: ", ghost_timer_index)
+	## Ghost Music Timer - plays ghost music with boolean 'ticks' at set points in milliseconds
+	elif ghost_music_timer_active == true:
+		if ghost_timer_index < ghost_timer_intervals.size():
+			ghost_timer = Time.get_ticks_msec() - ghost_timer_start
+			if ghost_timer > ghost_timer_intervals[ghost_timer_index]:
+				ghost_timer_tick.emit()
+				ghost_timer_index += 1
+		else:
+			ghost_music_timer_active = false
+			ghost_chase_timer_active = true
+			ghost_chase_timer = ghost_chase_timer_set + Time.get_ticks_msec()
+			print(" -- GHOST MUSIC TIMER END -- ")
 		##print("Ghost timer: ", ghost_timer, " - index: ", ghost_timer_index, " - current interval: ", ghost_timer_intervals[ghost_timer_index])
+	
+	## Timer for ghost chasing player - once finished, resets all timers and starts world timer again.
+	elif ghost_chase_timer_active == true:
+		if ghost_chase_timer <= time:
+			reset_all_world_timers()
+			on_timers_reset.emit()
+			print(" -- GHOST CHASE TIMER END -- ")
 
 
+
+
+##----------------------------------------------
+##               Time Management               |
+##----------------------------------------------
+
+func reset_all_world_timers() -> void:
+	world_timer = world_timer_set + Time.get_ticks_msec()
+	world_timer_active = true
+	
+	ghost_music_timer_active = false
+	ghost_timer = 0
+	ghost_timer_index = 0
+	
+	ghost_chase_timer_active = false
+	ghost_chase_timer = 0
 
 
 ##----------------------------------------------

@@ -60,19 +60,18 @@ var body_part_default_angle := [
 
 ##-----------
 ## Camera Zoom
-var camera_index = 0
-var camera_zoom_targets = [
-	Vector2(1.2, 1.2),
-	Vector2(1.4, 1.4),
-	Vector2(1.6, 1.6),
-	Vector2(1.8, 1.8),
-	Vector2(2.0, 2.0)
-]
+const ZOOM_AMOUNT = 0.1
 
 
 ##----------------------------------------------
 ##                    Update                   |
 ##----------------------------------------------
+
+func _ready() -> void:
+	## signal setup
+	Main.ghost_timer_tick.connect(on_ghost_music_tick)
+	Main.on_timers_reset.connect(camera_reset)
+
 
 func _physics_process(delta: float) -> void:
 	get_player_input(delta)
@@ -97,12 +96,24 @@ func _process(delta: float) -> void:
 	else:
 		$Collider/Player_Sprite.texture = image_idle
 	
-	## camera zoom
-	if Main.ghost_timer_tick == true:
-		print("ghost timer tick! do camera zoom: ", camera_zoom_targets[camera_index], "  --  index: ", camera_index)
-		var tween = create_tween()
-		tween.tween_property($Camera2D, "zoom", camera_zoom_targets[camera_index], 1)
-		camera_index += 1
+	## Put footsteps here
+		## write sfx footstep system
+
+##----------------------------------------------
+##                    Camera                   |
+##----------------------------------------------
+
+## Camera zoom
+func on_ghost_music_tick() -> void:
+	var tween = create_tween()
+	var zoom_target = (Vector2.ONE * ZOOM_AMOUNT) + $Camera2D.zoom
+	tween.tween_property($Camera2D, "zoom", zoom_target, 1)
+
+
+## Camera zoom reset
+func camera_reset() -> void:
+	var tween = create_tween()
+	tween.tween_property($Camera2D, "zoom", Vector2.ONE, 2)
 
 
 ##----------------------------------------------

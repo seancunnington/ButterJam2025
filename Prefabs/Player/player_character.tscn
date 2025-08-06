@@ -98,8 +98,10 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
+visible = false
 fit_margin = 1.0
 clear_margin = 1.0
+script = ExtResource("5_6ye7q")
 
 [node name="Color" type="Sprite2D" parent="CanvasGroup"]
 material = SubResource("CanvasItemMaterial_tmpqm")
@@ -109,7 +111,6 @@ texture = SubResource("GradientTexture2D_2qjvy")
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_h1iyn")
 color = Color(0.0943306, 0.0480493, 0.0747924, 1)
-script = ExtResource("5_6ye7q")
 
 [node name="Mask" type="Sprite2D" parent="CanvasGroup"]
 material = SubResource("CanvasItemMaterial_u8k7w")

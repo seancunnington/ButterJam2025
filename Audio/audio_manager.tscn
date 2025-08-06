@@ -1,20 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddbf3lojwuvdj"]
+[gd_scene load_steps=7 format=3 uid="uid://ddbf3lojwuvdj"]
 
 [ext_resource type="Script" uid="uid://bksbalmc0ndu" path="res://Audio/audio_manager.gd" id="1_x7qoq"]
 [ext_resource type="AudioStream" uid="uid://dpswf3cy52jqy" path="res://Audio/ActualMusic/What if Heaven is Hell.mp3" id="2_so863"]
+[ext_resource type="AudioStream" uid="uid://dhvqqquss78gq" path="res://Audio/TestMusic/Drums.mp3" id="3_i84i0"]
 [ext_resource type="AudioStream" uid="uid://d106sgx55bkmf" path="res://Audio/ActualMusic/I'm Gonna Get Ya.mp3" id="3_uukss"]
+[ext_resource type="AudioStream" uid="uid://baodjopo8mvcn" path="res://Audio/TestMusic/Arp.mp3" id="4_150o5"]
 
 [sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_dbmpi"]
-stream_count = 2
+stream_count = 3
 stream_0/stream = ExtResource("2_so863")
 stream_0/volume = 0.0
-stream_1/stream = ExtResource("3_uukss")
+stream_1/stream = ExtResource("3_i84i0")
 stream_1/volume = 0.0
+stream_2/stream = ExtResource("4_150o5")
+stream_2/volume = 0.0
 
 [node name="AudioManager" type="Node" node_paths=PackedStringArray("music_player")]
 script = ExtResource("1_x7qoq")
+play_on_start = true
 music_player = NodePath("MusicPlayer")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamSynchronized_dbmpi")
 bus = &"Music"
+
+[node name="GhostMusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_uukss")

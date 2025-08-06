@@ -1,0 +1,37 @@
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://d3lqu277a4sd5"]
+
+[ext_resource type="Texture2D" uid="uid://dljrbqkuisvkh" path="res://Textures/Water/water_fill.png" id="1_dordn"]
+[ext_resource type="Texture2D" uid="uid://doimrc7jxavif" path="res://Textures/Water/water_rising.png" id="2_0241x"]
+[ext_resource type="Texture2D" uid="uid://cdmvmvsalxj0" path="res://Textures/Water/water_top.png" id="3_stv58"]
+[ext_resource type="Texture2D" uid="uid://cgbjt0kxskcsw" path="res://Textures/Water/water_wavy.png" id="4_jvoml"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mlhem"]
+texture = ExtResource("1_dordn")
+texture_region_size = Vector2i(64, 64)
+use_texture_padding = false
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dkh3v"]
+texture = ExtResource("2_0241x")
+texture_region_size = Vector2i(64, 64)
+use_texture_padding = false
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dayp4"]
+texture = ExtResource("3_stv58")
+texture_region_size = Vector2i(64, 64)
+use_texture_padding = false
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kneua"]
+texture = ExtResource("4_jvoml")
+texture_region_size = Vector2i(64, 64)
+use_texture_padding = false
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_mlhem")
+sources/1 = SubResource("TileSetAtlasSource_dkh3v")
+sources/2 = SubResource("TileSetAtlasSource_dayp4")
+sources/3 = SubResource("TileSetAtlasSource_kneua")
